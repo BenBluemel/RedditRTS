@@ -12,19 +12,19 @@ namespace RedditRTS.Api.Infrastructure.Apis.Throttling
     public class SmoothThrottle : IThrottleStrategy
     {
         private readonly ILogger<SmoothThrottle> _logger;
-        private readonly RedditConfig _reditConfig;
+        private readonly RedditConfig _redditConfig;
 
-        public SmoothThrottle(ILogger<SmoothThrottle> logger, IOptions<RedditConfig> reditConfig)
+        public SmoothThrottle(ILogger<SmoothThrottle> logger, IOptions<RedditConfig> redditConfig)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            _reditConfig = reditConfig?.Value ?? throw new ArgumentNullException(nameof(reditConfig));
+            _redditConfig = redditConfig?.Value ?? throw new ArgumentNullException(nameof(redditConfig));
         }
         public TimeSpan TimeToWait(RateLimits? rateLimits)
         {
             if (rateLimits == null)
             {
                 // Todo: Default wait time
-                return TimeSpan.FromMilliseconds(_reditConfig.RateLimitWaitTimeNoHeaders);
+                return TimeSpan.FromMilliseconds(_redditConfig.RateLimitWaitTimeNoHeaders);
             }
 
             _logger.LogInformation("rateLimitingRemaining {rlr}, rateLimitUsed {rlu}, rateLimitReset {rlreset}",

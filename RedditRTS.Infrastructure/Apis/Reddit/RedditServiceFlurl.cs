@@ -16,9 +16,9 @@ namespace RedditRTS.Infrastructure.Apis.Reddit
         private readonly IMapper _mapper;
         private readonly RedditConfig _redditConfig;
 
-        public RedditServiceFlurl(IOptions<RedditConfig> reditConfig, IMapper mapper)
+        public RedditServiceFlurl(IOptions<RedditConfig> redditConfig, IMapper mapper)
         {
-            _redditConfig = reditConfig.Value ?? throw new ArgumentNullException(nameof(reditConfig));
+            _redditConfig = redditConfig.Value ?? throw new ArgumentNullException(nameof(redditConfig));
             _mapper = mapper;
         }
         
