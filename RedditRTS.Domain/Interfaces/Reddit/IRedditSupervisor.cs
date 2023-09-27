@@ -2,6 +2,6 @@
 {
     public interface IRedditSupervisor
     {
-        Task CollectData();
+        Task CollectDataAsync();
     }
 }

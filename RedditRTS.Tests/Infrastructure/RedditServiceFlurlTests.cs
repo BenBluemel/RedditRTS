@@ -10,7 +10,7 @@ using RedditRTS.Domain.Models.Reddit;
 using RedditRTS.Infrastructure.Apis.Reddit;
 using RedditRTS.Infrastructure.Apis.Reddit.Models;
 
-namespace RedditRTS.Infrastructure.Tests
+namespace RedditRTS.Tests.Infrastructure
 {
     public class RedditServiceFlurlTests
     {
@@ -25,7 +25,7 @@ namespace RedditRTS.Infrastructure.Tests
             var mapperMock = new Mock<IMapper>();
             mapperMock.Setup(x => x.Map<RedditPostsResponse>(It.IsAny<object>()))
                 .Returns(new RedditPostsResponse());
-            
+
             redditConfigMock.Setup(x => x.Value)
                 .Returns(new RedditConfig
                 {
@@ -35,10 +35,10 @@ namespace RedditRTS.Infrastructure.Tests
                 });
 
             var service = new RedditServiceFlurl(redditConfigMock.Object, mapperMock.Object);
-            
+
             // Act
             var result = await service.GetNextPostsAsync(redditConfigMock.Object.Value.Subreddits.First(), null);
-            
+
             // Assert
             result.Should().NotBeNull();
             result.RateLimits.Should().BeNull();

@@ -38,7 +38,7 @@ namespace RedditRTS.Api.Infrastructure.Apis.Reddit
                 _latestPost.Add(subreddit, null);
             }
         }
-        public async Task CollectData()
+        public async Task CollectDataAsync()
         {
             foreach (var subreddit in _subreddits)
             {

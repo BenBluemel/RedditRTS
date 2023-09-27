@@ -16,7 +16,7 @@ namespace RedditRTS.Infrastructure.Startup
         {
             services.AddSingleton<IRedditService, RedditServiceFlurl>();
             services.AddSingleton<IThrottleStrategy, SmoothThrottle>();
-            services.AddSingleton<IRedditSupervisor, RedditSupervisor>();
+            services.AddSingleton<IRedditSupervisor, MultiSubredditRoundRobinRedditSupervisor>();
             services.AddSingleton<IRedditStatistics, RedditStatistics>();
             services.AddSingleton<IRedditPersistence, RedditPersistence>();
 

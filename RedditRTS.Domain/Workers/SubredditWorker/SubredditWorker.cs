@@ -23,7 +23,7 @@ namespace RedditRTS.Api.Workers.SubredditWorker
                 _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
                 try
                 {
-                    await _redditSupervisor.CollectData();
+                    await _redditSupervisor.CollectDataAsync();
                 }
                 catch (Exception ex)
                 {
