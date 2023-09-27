@@ -5,11 +5,13 @@
 The apikey is stored in appsettings.json in the RedditRTS.Api project
 Application Only api key
 
+```json
 {
   "Reddit": {
     "ApiKey": "put key here"
   }
-]
+}
+```
 
 You can also put the above in secrets on your machine
 
@@ -22,6 +24,7 @@ You can also put the above in secrets on your machine
 * MaximumRequestLimit - The amount of posts to get in one api call, used by the worker
 
   Example:
+```json
   {
       "ApiKey": "replace_me",
       "ApiHost": "https://oauth.reddit.com",
@@ -30,6 +33,7 @@ You can also put the above in secrets on your machine
       "MaximumRequestLimit": 100
     }
 }
+```
 
 ## Endpoints
 
@@ -37,10 +41,10 @@ You can also put the above in secrets on your machine
 
 ### GET [host]/posts/mostupvotes - Gets a list of the my up voted posts, ordered descending by up votes
 query parameters:
-subreddit - Optional, will return the top up voted posts for a subreddit.  ex. Funny, not r/Funny
-limit - Number of up voted posts to return, defaults to 10, maximum 100
+* subreddit - Optional, will return the top up voted posts for a subreddit.  ex. Funny, not r/Funny
+* limit - Number of up voted posts to return, defaults to 10, maximum 100
 
 ### GET [host]/posts/authors/mostposts - Gets a list of the authors with the most posts in a subreddit
 query parameters:
-subreddit - Optional, will return the top up voted posts for a subreddit.  ex. Funny, not r/Funny
-limit - Number of up voted posts to return, defaults to 10, maximum 100
+* subreddit - Optional, will return the top up voted posts for a subreddit.  ex. Funny, not r/Funny
+* limit - Number of up voted posts to return, defaults to 10, maximum 100
