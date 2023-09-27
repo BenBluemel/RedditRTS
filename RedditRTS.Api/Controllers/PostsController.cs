@@ -21,6 +21,12 @@ namespace RedditRTS.Api.Controllers
             _mapper = mapper;
         }
 
+        /// <summary>
+        /// Gets a list of authors with the most posts
+        /// </summary>
+        /// <param name="subreddit">The subreddit name only ie "Home" instead of "r/Home". Optional, will return all subreddits if left empty.</param>
+        /// <param name="limit">The number of authors to show, default 10, max 100</param>
+        /// <returns>A list of authors with the most posts in a subreddit</returns>
         [HttpGet]
         [Route("mostupvotes")]
         public async Task<ActionResult<PostListViewModel>> PostsWithMostUpVotes(string? subreddit, int limit = 10)
@@ -39,6 +45,12 @@ namespace RedditRTS.Api.Controllers
             return result;
         }
 
+        /// <summary>
+        /// Gets a list of the most upvoted posts, ordered by upvotes descending
+        /// </summary>
+        /// <param name="subreddit">The subreddit name only ie "Home" instead of "r/Home". Optional, will return all subreddits if left empty.</param>
+        /// <param name="limit">The number of posts to show, default 10, max 100</param>
+        /// <returns>A list of the most upvoted posts</returns>
         [HttpGet]
         [Route("authors/mostposts")]
         public async Task<ActionResult<AuthorListViewModel>> AuthorsWithMostPosts(string? subreddit, int limit = 10)

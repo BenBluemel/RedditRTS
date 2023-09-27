@@ -8,19 +8,19 @@ using RedditRTS.Domain.Models.Reddit;
 
 namespace RedditRTS.Api.Infrastructure.Apis.Reddit
 {
-    public class RedditSupervisor : IRedditSupervisor
+    public class MultiSubredditRoundRobinRedditSupervisor : IRedditSupervisor
     {
         private readonly IRedditService _redditService;
         private readonly IRedditPersistence _redditPersistence;
         private readonly IThrottleStrategy _throttleStrategy;
-        private readonly ILogger<RedditSupervisor> _logger;
+        private readonly ILogger<MultiSubredditRoundRobinRedditSupervisor> _logger;
         private readonly RedditConfig _redditConfig;
         private readonly List<string> _subreddits = new();
 
         private static Dictionary<string, string?> _latestPost = new();
 
-        public RedditSupervisor(IRedditService redditService, IRedditPersistence redditPersistence,
-            IThrottleStrategy throttleStrategy, IOptions<RedditConfig> redditConfig, ILogger<RedditSupervisor> logger)
+        public MultiSubredditRoundRobinRedditSupervisor(IRedditService redditService, IRedditPersistence redditPersistence,
+            IThrottleStrategy throttleStrategy, IOptions<RedditConfig> redditConfig, ILogger<MultiSubredditRoundRobinRedditSupervisor> logger)
         {
             _redditService = redditService ?? throw new ArgumentNullException(nameof(redditService));
             _redditConfig = redditConfig?.Value ?? throw new ArgumentNullException(nameof(redditConfig));
@@ -42,11 +42,19 @@ namespace RedditRTS.Api.Infrastructure.Apis.Reddit
         {
             foreach (var subreddit in _subreddits)
             {
-                var nextPosts = await _redditService.GetNextPostsAsync(subreddit, _latestPost[subreddit]);
-                _latestPost[subreddit] = nextPosts.After ?? nextPosts.Posts.LastOrDefault()?.Id ?? _latestPost[subreddit];
-                var persistPosts = PersistPostsAsync(subreddit, nextPosts);
-                var throttleDelay = Task.Delay((int)_throttleStrategy.TimeToWait(nextPosts?.RateLimits).TotalMilliseconds);
-                await Task.WhenAll(persistPosts, throttleDelay);
+                try
+                {
+                    var nextPosts = await _redditService.GetNextPostsAsync(subreddit, _latestPost[subreddit]);
+                    _latestPost[subreddit] = nextPosts.After ?? nextPosts.Posts.LastOrDefault()?.Id ?? _latestPost[subreddit];
+                    var persistPosts = PersistPostsAsync(subreddit, nextPosts);
+                    var throttleDelay = Task.Delay((int)_throttleStrategy.TimeToWait(nextPosts?.RateLimits).TotalMilliseconds);
+                    await Task.WhenAll(persistPosts, throttleDelay);
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "Exception while getting data for subreddit {subreddit} latestPost {latestPost}", subreddit, _latestPost[subreddit]);
+                    continue;
+                }
             }
         }
 

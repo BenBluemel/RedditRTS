@@ -21,7 +21,14 @@ namespace RedditRTS.Api.Workers.SubredditWorker
             while (!cancellationToken.IsCancellationRequested)
             {
                 _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
-                await _redditSupervisor.CollectData();
+                try
+                {
+                    await _redditSupervisor.CollectData();
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "Unhandled exception");
+                }
             }
         }
 

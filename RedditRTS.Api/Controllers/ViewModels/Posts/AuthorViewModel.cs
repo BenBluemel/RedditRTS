@@ -1,6 +1,4 @@
-﻿using RedditRTS.Domain.Models.Reddit;
-
-namespace RedditRTS.Api.Controllers.ViewModels.Posts
+﻿namespace RedditRTS.Api.Controllers.ViewModels.Posts
 {
     public class AuthorViewModel
     {
