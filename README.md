@@ -15,11 +15,11 @@ You can also put the above in secrets on your machine
 
 ## General Reddit configurations
 
-  ApiKey - The api key
-  ApiHost - The reddit host to connect to get posts
-  Subreddits - An array of full r/subreddits 
-  RateLimitWaitTimeNoheader - The default time to wait inbetween calls if there are no rate limiting headers
-  MaximumRequestLimit - The amount of posts to get in one api call, used by the worker
+* ApiKey - The api key
+* ApiHost - The reddit host to connect to get posts
+* Subreddits - An array of full r/subreddits 
+* RateLimitWaitTimeNoheader - The default time to wait inbetween calls if there are no rate limiting headers
+* MaximumRequestLimit - The amount of posts to get in one api call, used by the worker
 
   Example:
   {
