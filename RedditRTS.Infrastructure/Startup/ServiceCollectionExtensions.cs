@@ -18,6 +18,12 @@ namespace RedditRTS.Infrastructure.Startup
             services.AddSingleton<IRedditSupervisor, RedditSupervisor>();
             services.AddSingleton<IRedditStatistics, RedditStatistics>();
             services.AddSingleton<IRedditPersistence, RedditPersistence>();
+
+            //FlurlHttp.Configure(settings =>
+            //{
+            //    settings.AfterCallAsync = async (call) => Debug.WriteLine($"Request: {await call.Request.GetStringAsync()}");
+            //    settings.BeforeCallAsync = async (call) => Debug.WriteLine($"Response: {await call.Response.GetStringAsync()}");
+            //});
             return services;
         }
     }

@@ -4,8 +4,8 @@ namespace RedditRTS.Api.Domain.Interfaces.Reddit
 {
     public interface IRedditStatistics
     {
-        Task<IEnumerable<string>> GetAuthorsWithMostPostsAsync(string? subreddit, int limit = 10);
-        Task<IEnumerable<Post>> GetPostsWithMostUpvotesAsync(string? subreddit, int limit = 10);
+        Task<List<AuthorWithMostPosts>> GetAuthorsWithMostPostsAsync(string? subreddit, int limit = 10);
+        Task<List<Post>> GetPostsWithMostUpvotesAsync(string? subreddit, int limit = 10);
     }
 
     public interface IRedditPersistence

@@ -22,7 +22,7 @@ namespace RedditRTS.Api.Controllers
         }
 
         [HttpGet]
-        [Route("posts/mostupvotes")]
+        [Route("mostupvotes")]
         public async Task<ActionResult<PostListViewModel>> PostsWithMostUpVotes(string? subreddit, int limit = 10)
         {
             if (limit > maxLimit)
@@ -36,6 +36,24 @@ namespace RedditRTS.Api.Controllers
 
             var posts = await _redditStatistics.GetPostsWithMostUpvotesAsync(subreddit, limit);
             var result = _mapper.Map<PostListViewModel>(posts);
+            return result;
+        }
+
+        [HttpGet]
+        [Route("authors/mostposts")]
+        public async Task<ActionResult<AuthorListViewModel>> AuthorsWithMostPosts(string? subreddit, int limit = 10)
+        {
+            if (limit > maxLimit)
+            {
+                return Problem(
+                    title: "limit out of range",
+                    detail: $"limit max is {maxLimit}",
+                    statusCode: (int)HttpStatusCode.BadRequest
+                );
+            }
+
+            var authors = await _redditStatistics.GetAuthorsWithMostPostsAsync(subreddit, limit);
+            var result = _mapper.Map<AuthorListViewModel>(authors);
             return result;
         }
     }

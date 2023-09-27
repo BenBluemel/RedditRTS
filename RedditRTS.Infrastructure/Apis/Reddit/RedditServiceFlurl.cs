@@ -8,7 +8,6 @@ using RedditRTS.Domain.Models.Configuration;
 using RedditRTS.Domain.Models.Reddit;
 using RedditRTS.Domain.Models.Throttling;
 using RedditRTS.Infrastructure.Apis.Reddit.Models;
-using System.Diagnostics;
 
 namespace RedditRTS.Infrastructure.Apis.Reddit
 {
@@ -25,12 +24,6 @@ namespace RedditRTS.Infrastructure.Apis.Reddit
         
         public async Task<RedditPostsResponse> GetNextPostsAsync(string subreddit, string? after)
         {
-            FlurlHttp.Configure(settings =>
-            {
-                settings.AfterCall = (call) => Debug.WriteLine(call.Request);
-                settings.BeforeCall = (call) => Debug.WriteLine(call.Request);
-            });
-
             var token = _redditConfig.ApiKey;
 
             var flurlResponse = await new Url(_redditConfig.ApiHost)
@@ -38,7 +31,7 @@ namespace RedditRTS.Infrastructure.Apis.Reddit
                 .AppendPathSegment("new")
                 .WithHeader("User-Agent", "Hello")
                 .SetQueryParam("after", after)
-                .SetQueryParam("limit", 100)
+                .SetQueryParam("limit", _redditConfig.MaximumRequestLimit)
                 .WithOAuthBearerToken(token)
                 .GetAsync();
             var rawResponse = await flurlResponse.GetJsonAsync<Root>();

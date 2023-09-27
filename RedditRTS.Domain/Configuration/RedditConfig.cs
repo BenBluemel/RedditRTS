@@ -6,5 +6,6 @@
         public string? ApiHost { get; set; }
         public List<string> Subreddits { get; set; } = new();
         public int RateLimitWaitTimeNoHeaders { get; set; }
+        public int MaximumRequestLimit { get; set; }
     }
 }
