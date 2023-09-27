@@ -5,6 +5,7 @@ using RedditRTS.Api.Domain.Interfaces.Reddit;
 using RedditRTS.Api.Infrastructure.Apis.Reddit;
 using RedditRTS.Api.Infrastructure.Apis.Throttling;
 using RedditRTS.Api.Infrastructure.Persistance;
+using RedditRTS.Domain.Interfaces.Persistence;
 using RedditRTS.Infrastructure.Apis.Reddit;
 
 namespace RedditRTS.Infrastructure.Startup

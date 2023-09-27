@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 
-using RedditRTS.Api.Domain.Interfaces.Reddit;
+using RedditRTS.Domain.Interfaces.Persistence;
 using RedditRTS.Domain.Models.Reddit;
 
 namespace RedditRTS.Api.Infrastructure.Persistance

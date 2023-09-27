@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Options;
 using RedditRTS.Api.Domain.Interfaces;
 using RedditRTS.Api.Domain.Interfaces.Reddit;
+using RedditRTS.Domain.Interfaces.Persistence;
 using RedditRTS.Domain.Models.Configuration;
 using RedditRTS.Domain.Models.Reddit;
 

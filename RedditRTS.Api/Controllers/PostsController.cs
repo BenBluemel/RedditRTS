@@ -2,7 +2,7 @@
 
 using Microsoft.AspNetCore.Mvc;
 using RedditRTS.Api.Controllers.ViewModels.Posts;
-using RedditRTS.Api.Domain.Interfaces.Reddit;
+using RedditRTS.Domain.Interfaces.Persistence;
 using System.Net;
 
 namespace RedditRTS.Api.Controllers
