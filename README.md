@@ -22,7 +22,7 @@ You can also put the above in secrets on your machine
   MaximumRequestLimit - The amount of posts to get in one api call, used by the worker
 
   Example:
-  {    
+  {
       "ApiKey": "replace_me",
       "ApiHost": "https://oauth.reddit.com",
       "Subreddits": [ "r/Funny", "r/Home" ],
